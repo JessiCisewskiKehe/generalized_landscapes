@@ -3,9 +3,10 @@
 ### Please send questions to jessica.cisewski@yale.edu
 
 ### Run the function below
-getPickUpSticks <- function(n, thickness, xrange, yrange){
+getPickUpSticks <- function(n, thickness, image.name, xrange, yrange){
 # n = number of sticks 
-# thickness = degrees of freedom of X^2 for thickness of sticks
+# thickness = degrees of freedom of X^2 for thickness of sticks'
+# image.name = name to save the file as
 # xrange = constant > 0 for specifying the range for points to be uniformly sampled in the horizontal direction 
 # yrange = constant > 0 for specifying the range for points to be uniformly sampled in the horizontal direction 
 # Note:  the xrange and yrange is arbitrary; the images are set to appear square
@@ -41,19 +42,13 @@ lwd0 <- rchisq(n, thickness)
 # Grayscale for color of lines
 col0 <- gray.colors(20, start = .5, end = 1)[sample(1:20,n,replace = TRUE)]
 
-# Produce image
+png(paste0(image.name,".png"), width = 600, height = 600)
 par(mar = c(0,0,0,0), oma = c(0,0,0,0), bg = "black")
 plot(getPoints1[,1], getPoints1[,2], xlab = "", ylab = "", pch = 19, cex = .05, xlim = gridx*.5, ylim = gridy*.5, xaxt = "n", yaxt = "n", axes = FALSE)
 points(getPoints2[,1], getPoints2[,2], pch = 19, cex = .05)
 segments(getPoints1[,1], getPoints1[,2], getPoints2[,1], getPoints2[,2], lwd = lwd0, col = col0)
+dev.off()
 }
 
-
-### Example of function use
-n <- 100
-thickness <- 10
-xrange <- 3
-yrange <- 20
-getPickUpSticks(n, thickness, xrange, yrange)
 
 
